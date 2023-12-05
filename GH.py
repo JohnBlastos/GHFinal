@@ -18,7 +18,7 @@ BLACK = (0, 0, 0)
 FPS = 60
 notes_speed = 5
 note_width, note_height = 50, 50
-re
+
 # Load assets (replace 'note.png' and 'guitar_sound.mp3' with your own assets)
 note_image = pygame.image.load('note.png')  # Replace with your note image
 note_image = pygame.transform.scale(note_image, (note_width, note_height))
