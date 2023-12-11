@@ -17,10 +17,20 @@ RED = (255, 0, 0)
 
 # Game settings
 FPS = 60
-notes_speed = 5
 note_width, note_height = 50, 50
 hit_bar_y = screen_height - 50  # Y position of the hit bar
 hit_window = 100  # Increased window for hitting a note
+
+# Additional settings for gradual speed increase
+initial_spawn_interval = 60  # Initial spawn interval (in frames)
+final_spawn_interval = 15    # Final spawn interval (in frames)
+spawn_interval_decrement = (initial_spawn_interval - final_spawn_interval) / (FPS * 60 * 8.5)  # Gradual decrement over 8.5 minutes
+current_spawn_interval = initial_spawn_interval
+
+initial_note_speed = 5       # Initial note speed
+final_note_speed = 10        # Final note speed
+speed_increment = (final_note_speed - initial_note_speed) / (FPS * 60 * 8.5)  # Gradual increment over 8.5 minutes
+notes_speed = initial_note_speed
 
 # Load assets (replace 'note.jpg' and 'master_of_puppets.mp3' with your own assets)
 note_image = pygame.image.load('note.jpg')  # Replace with your note image
@@ -72,11 +82,13 @@ while running:
 
     # Spawn notes
     spawn_note_timer += 3
-    if spawn_note_timer > FPS:  # spawn a note every second
+    if spawn_note_timer > current_spawn_interval:  # Gradually decrease spawn interval
         spawn_note_timer = 0
         x_pos, column = random.choice(note_positions)
         new_note = Note(x_pos, -note_height, column)
         notes.append(new_note)
+        current_spawn_interval -= spawn_interval_decrement  # Decrement spawn interval
+        notes_speed += speed_increment  # Increment note speed
 
     # Event handling
     for event in pygame.event.get():
@@ -85,11 +97,15 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4]:
                 column = event.key - pygame.K_1 + 1
+                note_hit = False
                 for note in reversed(notes):  # Iterate in reverse order
                     if note.column == column and note.check_hit(hit_bar_y, hit_window) and not note.hit:
                         note.hit = True
                         score += 10
+                        note_hit = True
                         break  # Stop after hitting the bottom-most note
+                if not note_hit:  # Subtract points if no note is hit
+                    score -= 15
 
     # Update and check notes
     for note in notes:
