@@ -1,4 +1,4 @@
-# This file was created by John Blastos
+# This file was created by John Blastos and Gunnarr Waterbury
 
 import pygame
 import random
