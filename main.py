@@ -19,7 +19,7 @@ BLUE = (0, 0, 225)
 # Game settings
 FPS = 60
 note_width, note_height = 50, 50
-hit_bar_y = screen_height - 50  # Y position of the hit bar
+hit_bar_y = screen_height - 60  # Y position of the hit bar
 hit_window = 100  # Increased window for hitting a note
 
 # Additional settings for gradual speed increase
@@ -120,8 +120,8 @@ def show_tutorial(screen):
     while running:
         screen.fill(BLACK)
         font = pygame.font.SysFont(None, 28)
-        tutorial_text = font.render('Tutorial: Press keys 1, 2, 3, 4 to hit notes when they hit the red line. Close this window to go to Menu', True, WHITE)
-        screen.blit(tutorial_text, (50, screen_height // 2))
+        tutorial_text = font.render('Tutorial: Press keys 1, 2, 3, 4 to hit notes right before they hit the red line. Close this window to go to Menu', True, WHITE)
+        screen.blit(tutorial_text, (25, screen_height // 2))
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -233,7 +233,7 @@ while running:
     # Remove missed and hit notes
     notes = [note for note in notes if not note.hit and not note.missed]
 
-    # Display score
+    # Display scored
     font = pygame.font.SysFont(None, 36)
     score_text = font.render(f'Score: {score}', True, WHITE)
 
