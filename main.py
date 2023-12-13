@@ -37,7 +37,7 @@ notes_speed = initial_note_speed
 note_image = pygame.image.load('Note.png') 
 note_image = pygame.transform.scale(note_image, (note_width, note_height))
 # set background------------------------------------------------------------------------------------------------------------------------------------
-background_image = pygame.image.load('background.png') 
+background_image = pygame.image.load('background.png')
 #---------------------------------------------------------------------------------------------------------------------------------------------------
 pygame.mixer.music.load('master_of_puppets.mp3')
 pygame.mixer.music.play(-1) 
@@ -111,7 +111,7 @@ def draw_menu(screen, selected_option):
     # Instructions for navigation and selection
     instructions_font = pygame.font.SysFont(None, 36)
     instructions_text = instructions_font.render('Use Arrow Keys to Navigate, Enter to Select', True, WHITE)
-    screen.blit(instructions_text, (screen_width // 2 - instructions_text.get_width() // 2, screen_height - 40))
+    screen.blit(instructions_text, (screen_width // 2 - instructions_text.get_width() // 2, screen_height - 150))
 
     pygame.display.flip()
 
@@ -120,7 +120,7 @@ def show_tutorial(screen):
     while running:
         screen.fill(BLACK)
         font = pygame.font.SysFont(None, 28)
-        tutorial_text = font.render('Tutorial: Press keys 1, 2, 3, 4 to hit notes right before they hit the red line. Close this window to go to Menu', True, WHITE)
+        tutorial_text = font.render('Tutorial: Press keys 1 2 3 4 to hit notes right before they hit the red line - ESC to go to Menu', True, WHITE)
         screen.blit(tutorial_text, (25, screen_height // 2))
         pygame.display.flip()
 
