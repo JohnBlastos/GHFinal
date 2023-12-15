@@ -1,4 +1,16 @@
-# This file was created by John Blastos and Gunnarr Waterbury
+# This file was created by John Blastos
+
+'''
+Sources:
+"Visual Elements in Gaming", H. Lee, 2019
+ 
+Quintagroup
+https://quintagroup.com/cms/python/cocos2d#:~:text=It%20is%20written%20in%20Python%20using%20pyglet%20library.,can%20also%20contain%20other%20sprites.
+ 
+tech with tim
+https://www.youtube.com/watch?v=wicgBgZIUQA&list=PL1P11yPQAo7p_mEAk8Q8FNYVutIc58eXe&index=1
+https://www.techwithtim.net/tutorials/python-online-game-tutorial 
+'''
 
 import pygame
 import random
@@ -10,12 +22,12 @@ pygame.init()
 screen_width, screen_height = 1025, 900
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-# Colors
+# Color definitions based on RGBA standards - Source: "Visual Elements in Gaming", H. Lee, 2019
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 225)
-
+LIGHT_BLUE = (57, 123, 179)
 # Game settings
 FPS = 60
 note_width, note_height = 50, 50
@@ -221,14 +233,16 @@ while running:
     # Display score and counters
     font = pygame.font.SysFont(None, 36)
     score_text = font.render(f'Score: {score}', True, WHITE)
-    hit_text = font.render(f'Notes Hit: {notes_hit}', True, WHITE)
-    missed_text = font.render(f'Notes Missed: {notes_missed}', True, WHITE)
-    streak_text = font.render(f'Current Streak: {current_streak} (Best: {highest_streak})', True, BLACK)
+    hit_text = font.render(f'Notes Hit: {notes_hit}', True, LIGHT_BLUE)
+    missed_text = font.render(f'Notes Missed: {notes_missed}', True, RED)
+    streak_text = font.render(f'Current Streak: {current_streak}', True, WHITE)
+    best_text = font.render(F'(Best: {highest_streak})', True, BLACK)
 
     screen.blit(score_text, (10, 30))
     screen.blit(hit_text, (10, 70))
     screen.blit(missed_text, (10, 110))
     screen.blit(streak_text, (10, 150))
+    screen.blit(best_text, (222, 150))
 
     # Remove missed and hit notes
     notes = [note for note in notes if not note.hit and not note.missed]
@@ -243,12 +257,14 @@ while running:
     # Cap the frame rate
     clock.tick(FPS)
 
-# Game End
+# Game End - printing final results
 print("Game Over")
 print(f"Final Score: {score}")
 print(f"Notes Hit: {notes_hit}")
 print(f"Notes Missed: {notes_missed}")
 print(f"Highest Streak: {highest_streak}")
+print(f"CURRENT HIGH SCORE: 13930 by JIRO")
 
 # Quit the game
 pygame.quit()
+# CURRENT HIGH SCORE: 9185
